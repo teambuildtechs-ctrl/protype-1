@@ -67,12 +67,28 @@ cd protype-1
 ```
 
 ### 2. Install dependencies
+
+You can install all dependencies automatically using the one-click installer scripts or standard npm:
+
+#### Option A: One-Click Installer Script
+- **Windows**: Double-click `install.bat` or run:
+  ```cmd
+  install.bat
+  ```
+- **macOS / Linux**: Run the shell script:
+  ```bash
+  chmod +x install.sh
+  ./install.sh
+  ```
+*This script verifies Node.js, runs `npm install`, and automatically creates your `.env.local` template file.*
+
+#### Option B: Standard npm
 ```bash
 npm install
 ```
 
 ### 3. Configure Supabase (Optional for local preview)
-Create a `.env.local` file in the root directory:
+Create or edit your `.env.local` file with your credentials:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
