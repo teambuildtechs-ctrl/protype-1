@@ -15,9 +15,11 @@ export default function Footer() {
           <h4 className="font-bold text-white mb-4">Explore</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/menu" className="hover:text-white transition-colors">Menu</Link></li>
+            <li><Link href="/reserve" className="hover:text-white transition-colors">Book a Table</Link></li>
             <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
             <li><Link href="/gallery" className="hover:text-white transition-colors">Gallery</Link></li>
             <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+            <li><Link href="/admin" className="text-stone-500 hover:text-amber-400 transition-colors text-xs pt-1 block">Staff / Admin Portal →</Link></li>
           </ul>
         </div>
         

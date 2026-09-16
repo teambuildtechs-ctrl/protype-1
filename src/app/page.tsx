@@ -35,7 +35,7 @@ export default function Home() {
               View Menu
             </Link>
             <Link 
-              href="#reservations" 
+              href="/reserve" 
               className="px-8 py-4 bg-transparent border border-white text-white font-medium rounded-full hover:bg-white/10 transition-colors w-full sm:w-auto"
             >
               Book a Table
