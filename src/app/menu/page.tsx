@@ -2,10 +2,12 @@
 
 import { useState } from 'react';
 import { mockCategories, mockProducts } from '@/lib/data/mockMenu';
+import { useCartStore } from '@/lib/store/useCartStore';
 
 export default function MenuPage() {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const addItem = useCartStore((state) => state.addItem);
 
   const filteredProducts = mockProducts.filter(product => {
     const matchesCategory = activeCategory === 'all' || product.category_id === activeCategory;
@@ -72,13 +74,9 @@ export default function MenuPage() {
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="font-serif text-xl font-bold text-stone-900">{product.name}</h3>
                         <div className="flex gap-2">
-                          {product.is_veg ? (
-                            <span className="w-4 h-4 border border-green-500 rounded-sm flex items-center justify-center" title="Vegetarian">
-                              <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                            </span>
-                          ) : (
-                            <span className="w-4 h-4 border border-red-500 rounded-sm flex items-center justify-center" title="Non-Vegetarian">
-                              <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                          {product.is_veg !== undefined && (
+                            <span className={`w-4 h-4 border rounded-sm flex items-center justify-center ${product.is_veg ? 'border-green-500' : 'border-red-500'}`} title={product.is_veg ? "Vegetarian" : "Non-Vegetarian"}>
+                              <span className={`w-2 h-2 rounded-full ${product.is_veg ? 'bg-green-500' : 'bg-red-500'}`}></span>
                             </span>
                           )}
                         </div>
@@ -97,7 +95,15 @@ export default function MenuPage() {
                     
                     <div className="flex items-center justify-between mt-4 pt-4 border-t border-stone-100">
                       <span className="text-lg font-bold text-stone-900">₹{product.price}</span>
-                      <button className="px-6 py-2 bg-stone-900 text-white text-sm font-medium rounded-full hover:bg-stone-800 transition-colors">
+                      <button 
+                        onClick={() => addItem({
+                          id: product.id,
+                          name: product.name,
+                          price: product.price,
+                          is_veg: product.is_veg
+                        })}
+                        className="px-6 py-2 bg-stone-900 text-white text-sm font-medium rounded-full hover:bg-stone-800 transition-colors active:scale-95"
+                      >
                         Add to Cart
                       </button>
                     </div>

@@ -1,6 +1,18 @@
 import Link from 'next/link';
+import { ShoppingBag } from 'lucide-react';
+import { useCartStore } from '@/lib/store/useCartStore';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
+  const { getItemCount, setIsOpen } = useCartStore();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const itemCount = mounted ? getItemCount() : 0;
+
   return (
     <nav className="sticky top-0 z-50 w-full bg-stone-50/80 backdrop-blur-md border-b border-stone-200">
       <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
@@ -23,7 +35,19 @@ export default function Navbar() {
           >
             Order Online
           </Link>
-          {/* Mobile menu button could go here */}
+          
+          <button 
+            onClick={() => setIsOpen(true)}
+            className="relative p-2 text-stone-900 hover:bg-stone-200 rounded-full transition-colors"
+            aria-label="Open cart"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            {itemCount > 0 && (
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-500 rounded-full">
+                {itemCount}
+              </span>
+            )}
+          </button>
         </div>
       </div>
     </nav>
