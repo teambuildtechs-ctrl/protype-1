@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import CartDrawer from "@/components/cart/CartDrawer";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-serif" });
@@ -24,13 +25,15 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased min-h-screen flex flex-col font-sans text-stone-900 bg-stone-50`}
       >
-        <Navbar />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <CartDrawer />
-        <WhatsAppButton />
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-grow">
+            {children}
+          </main>
+          <CartDrawer />
+          <WhatsAppButton />
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

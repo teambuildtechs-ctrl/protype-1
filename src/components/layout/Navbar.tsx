@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, User as UserIcon } from 'lucide-react';
 import { useCartStore } from '@/lib/store/useCartStore';
+import { useAuth } from '@/context/AuthContext';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const { getItemCount, setIsOpen } = useCartStore();
+  const { user } = useAuth();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -28,17 +30,26 @@ export default function Navbar() {
           <Link href="/contact" className="hover:text-stone-900 transition-colors">Contact</Link>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Link 
             href="/menu" 
             className="hidden sm:inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-stone-900 rounded-full hover:bg-stone-800 transition-colors"
           >
             Order Online
           </Link>
+
+          <Link
+            href={user ? "/profile" : "/login"}
+            className="p-2 text-stone-700 hover:text-stone-900 hover:bg-stone-200/60 rounded-full transition-colors"
+            title={user ? "My Account" : "Sign In"}
+            aria-label="User Account"
+          >
+            <UserIcon className="w-5 h-5" />
+          </Link>
           
           <button 
             onClick={() => setIsOpen(true)}
-            className="relative p-2 text-stone-900 hover:bg-stone-200 rounded-full transition-colors"
+            className="relative p-2 text-stone-900 hover:bg-stone-200/60 rounded-full transition-colors"
             aria-label="Open cart"
           >
             <ShoppingBag className="w-5 h-5" />
