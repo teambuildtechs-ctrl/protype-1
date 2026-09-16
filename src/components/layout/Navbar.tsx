@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 import { ShoppingBag, User as UserIcon } from 'lucide-react';
 import { useCartStore } from '@/lib/store/useCartStore';
